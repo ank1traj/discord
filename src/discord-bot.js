@@ -3,11 +3,11 @@ const schedule = require('node-schedule');
 
 const logger = require('./logger')
 
-const BOT_TOKEN = 'ODM5ODIyNTY0MzYzOTkzMTMw.YJPPtg.sbY0HRIgHW37pjRijmyBV8aTZ34'
-const GUILD_ID = '839823904604291092'
-const REPORTS_CHANNEL_ID = '839825344021135360'
-const GUEST_ROLE_ID = '839835322333528074'
-const INTRODUCTIONS_CHANNEL_ID = '839824964026236969'
+const BOT_TOKEN = process.env.Token
+const GUILD_ID = process.env.GuildID
+const REPORTS_CHANNEL_ID = process.env.ReportID
+const GUEST_ROLE_ID = process.env.GuestID
+const INTRODUCTIONS_CHANNEL_ID = process.env.IntroID
 
 const start = () => {
   const bot = new Discord.Client({})
