@@ -2,8 +2,6 @@ const Discord = require('discord.js')
 const schedule = require('node-schedule');
 
 const logger = require('./logger')
-const analytics = require('./analytics')
-
 
 const BOT_TOKEN = 'ODM5ODIyNTY0MzYzOTkzMTMw.YJPPtg.sbY0HRIgHW37pjRijmyBV8aTZ34'
 const GUILD_ID = '839823904604291092'
@@ -59,33 +57,6 @@ const start = () => {
       }
     }
   })
-}
-
-const sendAnalyticsReport = async (bot, period) => {
-  let reportPromise, periodText
-  if (period == 'weekly') {
-    reportPromise = analytics.generateWeeklyReport()
-    periodText = 'WEEKLY'
-  } else if (period == 'daily') {
-    reportPromise = analytics.generateDailyReport()
-    periodText = 'DAILY'
-  }
-
-  const guild = await bot.guilds.fetch(GUILD_ID)
-  const waspTeamTextChannel = guild.channels.resolve(REPORTS_CHANNEL_ID)
-
-  waspTeamTextChannel.send(`Generating report...`)
-
-  const report = await reportPromise
-  waspTeamTextChannel.send(`=============== ${periodText} ANALYTICS REPORT ===============`)
-  for (const metric of report) {
-    const text = metric.text.join('\n')
-    const chartImageUrl = metric.chart.toURL()
-    const embed = new Discord.MessageEmbed()
-    embed.setImage(chartImageUrl)
-    waspTeamTextChannel.send(text, embed)
-  }
-  waspTeamTextChannel.send('=======================================================')
 }
 
 module.exports = {
